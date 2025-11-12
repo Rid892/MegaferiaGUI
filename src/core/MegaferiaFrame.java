@@ -425,6 +425,11 @@ public class MegaferiaFrame extends javax.swing.JFrame {
 
         jButton4.setFont(new java.awt.Font("Yu Gothic UI", 0, 18)); // NOI18N
         jButton4.setText("Crear");
+        jButton4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton4ActionPerformed(evt);
+            }
+        });
 
         jComboBox3.setFont(new java.awt.Font("Yu Gothic UI", 0, 18)); // NOI18N
         jComboBox3.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccione uno..." }));
@@ -531,10 +536,19 @@ public class MegaferiaFrame extends javax.swing.JFrame {
 
         jButton8.setFont(new java.awt.Font("Yu Gothic UI", 0, 18)); // NOI18N
         jButton8.setText("Agregar Autor");
-        jButton8.setActionCommand("Agregar Autor");
+        jButton8.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton8ActionPerformed(evt);
+            }
+        });
 
         jButton9.setFont(new java.awt.Font("Yu Gothic UI", 0, 18)); // NOI18N
         jButton9.setText("Eliminar Autor");
+        jButton9.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton9ActionPerformed(evt);
+            }
+        });
 
         jTextArea2.setColumns(20);
         jTextArea2.setFont(new java.awt.Font("Yu Gothic UI", 0, 18)); // NOI18N
@@ -1020,7 +1034,7 @@ public class MegaferiaFrame extends javax.swing.JFrame {
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jTabbedPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 815, Short.MAX_VALUE)
+            .addComponent(jTabbedPane1)
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1090,6 +1104,14 @@ public class MegaferiaFrame extends javax.swing.JFrame {
             jTextField15.setEnabled(false);
             jTextField16.setEnabled(true);
             jComboBox6.setEnabled(true);
+            
+            jComboBox4.removeAllItems();
+            jComboBox4.addItem("Seleccione uno...");
+            jComboBox4.addItem("MP3");
+            jComboBox4.addItem("MP4");
+            jComboBox4.addItem("WAV");
+            jComboBox4.addItem("WMA");
+            jComboBox4.addItem("Otro");
         }
     }//GEN-LAST:event_jRadioButton3ActionPerformed
 
@@ -1122,6 +1144,11 @@ public class MegaferiaFrame extends javax.swing.JFrame {
             jTextField15.setEnabled(false);
             jTextField16.setEnabled(false);
             jComboBox6.setEnabled(false);
+            
+            jComboBox4.removeAllItems();
+            jComboBox4.addItem("Seleccione uno...");
+            jComboBox4.addItem("Pasta dura");
+            jComboBox4.addItem("Pasta blanda");
         }
     }//GEN-LAST:event_jRadioButton1ActionPerformed
 
@@ -1135,6 +1162,12 @@ public class MegaferiaFrame extends javax.swing.JFrame {
             jTextField16.setEnabled(false);
             jComboBox6.setEnabled(false);
             
+            jComboBox4.removeAllItems();
+            jComboBox4.addItem("Seleccione uno...");
+            jComboBox4.addItem("EPUB");
+            jComboBox4.addItem("PDF");
+            jComboBox4.addItem("MOBI/AZW");
+            jComboBox4.addItem("Otro");
         }
     }//GEN-LAST:event_jRadioButton2ActionPerformed
 
@@ -1186,9 +1219,9 @@ public class MegaferiaFrame extends javax.swing.JFrame {
         String nit = jTextField6.getText();
         String name = jTextField7.getText();
         String address = jTextField8.getText();
-        String[] managerInfo = jComboBox1.getItemAt(jComboBox1.getSelectedIndex()).split(" - ");
+        String[] managerData = jComboBox1.getItemAt(jComboBox1.getSelectedIndex()).split(" - ");
         
-        long managerId = Long.parseLong(managerInfo[0]);
+        long managerId = Long.parseLong(managerData[0]);
         
         Manager manager = null;
         for (Manager manag : this.managers) {
@@ -1200,7 +1233,80 @@ public class MegaferiaFrame extends javax.swing.JFrame {
         this.publishers.add(new Publisher(nit, name, address, manager));
         
         jComboBox5.addItem(name + " (" + nit + ")");
+        jComboBox8.addItem(name + " (" + nit + ")");
     }//GEN-LAST:event_jButton3ActionPerformed
+
+    private void jButton8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton8ActionPerformed
+        // TODO add your handling code here:
+        String author = jComboBox3.getItemAt(jComboBox3.getSelectedIndex());
+        jTextArea2.append(author + "\n");
+    }//GEN-LAST:event_jButton8ActionPerformed
+
+    private void jButton9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton9ActionPerformed
+        // TODO add your handling code here:
+        String author = jComboBox3.getItemAt(jComboBox3.getSelectedIndex());
+        jTextArea2.setText(jTextArea2.getText().replace(author + "\n", ""));
+    }//GEN-LAST:event_jButton9ActionPerformed
+
+    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+        // TODO add your handling code here:
+        String title = jTextField9.getText();
+        String[] authorsData = jTextArea2.getText().split("\n");
+        String isbn = jTextField11.getText();
+        String genre = jComboBox2.getItemAt(jComboBox2.getSelectedIndex());
+        String format = jComboBox4.getItemAt(jComboBox4.getSelectedIndex());
+        double value = Double.parseDouble(jTextField12.getText());
+        String publisherData = jComboBox5.getItemAt(jComboBox5.getSelectedIndex());
+        
+        ArrayList<Author> authors = new ArrayList<>();
+        for (String authorData : authorsData) {
+            long authorId = Long.parseLong(authorData.split(" - ")[0]);
+            for (Author author : this.authors) {
+                if (author.getId() == authorId) {
+                    authors.add(author);
+                }
+            }
+        }
+        
+        String publisherNit = publisherData.split(" ")[1].replace("(", "").replace(")", "");
+        
+        Publisher publisher = null;
+        for (Publisher publish : this.publishers) {
+            if (publish.getNit().equals(publisherNit)) {
+                publisher = publish;
+            }
+        }
+        
+        if (jRadioButton1.isSelected()) {
+            int pages = Integer.parseInt(jTextField13.getText());
+            int copies = Integer.parseInt(jTextField14.getText());
+            
+            this.books.add(new PrintedBook(title, authors, isbn, genre, format, value, publisher, pages, copies));
+        }
+        if (jRadioButton2.isSelected()) {
+            String hyperlink = jTextField15.getText();
+            if (hyperlink.equals("")) {
+                this.books.add(new DigitalBook(title, authors, isbn, genre, format, value, publisher));
+            } else {
+                this.books.add(new DigitalBook(title, authors, isbn, genre, format, value, publisher, hyperlink));
+            }
+        }
+        if (jRadioButton3.isSelected()) {
+            int duration = Integer.parseInt(jTextField16.getText());
+            String[] narratorData = jComboBox6.getItemAt(jComboBox6.getSelectedIndex()).split(" - ");
+            
+            long narratorId = Long.parseLong(narratorData[0]);
+            
+            Narrator narrator = null;
+            for (Narrator narrat : this.narrators) {
+                if (narrat.getId() == narratorId) {
+                    narrator = narrat;
+                }
+            }
+            
+            this.books.add(new Audiobook(title, authors, isbn, genre, format, value, publisher, duration, narrator));
+        }
+    }//GEN-LAST:event_jButton4ActionPerformed
 
     /**
      * @param args the command line arguments

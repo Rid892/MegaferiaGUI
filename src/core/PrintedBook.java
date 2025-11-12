@@ -13,12 +13,12 @@ import java.util.ArrayList;
 public class PrintedBook extends Book {
     
     private int pages;
-    private int numCopies;
+    private int copies;
 
-    public PrintedBook(String title, ArrayList<Author> authors, String isbn, String genre, String format, double value, Publisher publisher, int pages, int numCopies) {
+    public PrintedBook(String title, ArrayList<Author> authors, String isbn, String genre, String format, double value, Publisher publisher, int pages, int copies) {
         super(title, authors, isbn, genre, format, value, publisher);
         this.pages = pages;
-        this.numCopies = numCopies;
+        this.copies = copies;
     }
     
 }

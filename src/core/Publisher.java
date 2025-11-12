@@ -29,6 +29,22 @@ public class Publisher {
         
         this.manager.setPublisher(this);
     }
+
+    public String getNit() {
+        return nit;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public Manager getManager() {
+        return manager;
+    }
     
     public void addBook(Book book) {
         this.books.add(book);
