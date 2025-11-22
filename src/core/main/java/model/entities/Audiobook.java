@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package core;
+package model.entities;
 
 import java.util.ArrayList;
 
@@ -31,4 +31,17 @@ public class Audiobook extends Book {
         return narrador;
     }
     
+    @Override
+    public Audiobook deepCopy() {
+        Audiobook copy = new Audiobook();
+        copy.setIsbn(this.getIsbn());
+        copy.setTitle(this.getTitle());
+        copy.setPrice(this.getPrice());
+        copy.setPublisher(this.getPublisher() != null ? this.getPublisher().deepCopy() : null);
+        copy.setNarrator(this.getNarrator() != null ? this.getNarrator().deepCopy() : null);
+        List<Author> authorsCopy = new ArrayList<>();
+        this.getAuthors().forEach(a -> authorsCopy.add(a.deepCopy()));
+        copy.setAuthors(authorsCopy);
+        return copy;
+    }
 }

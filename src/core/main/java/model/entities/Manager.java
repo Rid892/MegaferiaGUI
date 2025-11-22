@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package core;
+package model.entities;
 
 /**
  *
@@ -24,4 +24,12 @@ public class Manager extends Person {
         this.publisher = publisher;
     }
     
+    @Override
+    public Manager deepCopy() {
+        Manager copy = new Manager();
+        copy.setId(this.getId());
+        copy.setName(this.getName());
+        copy.setLastName(this.getLastName());
+        return copy;
+    }
 }

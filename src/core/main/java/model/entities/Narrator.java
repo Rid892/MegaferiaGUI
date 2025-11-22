@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package core;
+package model.entities;
 
 import java.util.ArrayList;
 
@@ -25,6 +25,15 @@ public class Narrator extends Person {
     
     public void addBook(Audiobook book) {
         this.books.add(book);
+    }
+
+    @Override
+    public Narrator deepCopy() {
+        Narrator copy = new Narrator();
+        copy.setId(this.getId());
+        copy.setName(this.getName());
+        copy.setLastName(this.getLastName());
+        return copy;
     }
     
 }

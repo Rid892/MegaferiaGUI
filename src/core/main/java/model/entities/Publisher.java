@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package core;
+package model.entities;
 
 import java.util.ArrayList;
 
@@ -56,6 +56,15 @@ public class Publisher {
     
     public void addStand(Stand stand) {
         this.stands.add(stand);
+    }
+
+    @Override
+    public Publisher deepCopy() {
+        Publisher copy = new Publisher();
+        copy.setNit(this.getNit());
+        copy.setName(this.getName());
+        copy.setManager(this.getManager() != null ? this.getManager().deepCopy() : null);
+        return copy;
     }
     
 }
