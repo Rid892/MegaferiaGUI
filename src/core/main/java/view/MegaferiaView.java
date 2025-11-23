@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
-package model.entities;
+package view;
 
 import com.formdev.flatlaf.FlatDarkLaf;
 import java.util.ArrayList;
@@ -14,7 +14,7 @@ import javax.swing.table.DefaultTableModel;
  * @author jjlora
  * @author edangulo
  */
-public class MegaferiaFrame extends javax.swing.JFrame {
+public class MegaferiaView extends javax.swing.JFrame {
 
     private ArrayList<Stand> stands;
     private ArrayList<Author> authors;
