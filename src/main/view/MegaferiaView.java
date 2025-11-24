@@ -20,26 +20,18 @@ import javax.swing.table.DefaultTableModel;
  * @author edangulo
  */
 public class MegaferiaView extends javax.swing.JFrame {
-
-    private ArrayList<Stand> stands;
-    private ArrayList<Author> authors;
-    private ArrayList<Manager> managers;
-    private ArrayList<Narrator> narrators;
-    private ArrayList<Publisher> publishers;
-    private ArrayList<Book> books;
-    
-    /**
+    private final StandController standController = new StandController();
+    private final PersonController personController = new PersonController();
+    private final PublisherController publisherController = new PublisherController();
+    private final BookController bookController = new BookController();
+    private final PurchaseController purchaseController = new PurchaseController();
+    private final QueryController queryController = new QueryController();
+    /*
      * Creates new form MegaferiaFrame
      */
     public MegaferiaFrame() {
         initComponents();
         setLocationRelativeTo(null);
-        this.stands = new ArrayList<>();
-        this.authors = new ArrayList<>();
-        this.managers = new ArrayList<>();
-        this.narrators = new ArrayList<>();
-        this.publishers = new ArrayList<>();
-        this.books = new ArrayList<>();
     }
 
     /**
