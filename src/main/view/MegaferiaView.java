@@ -1382,58 +1382,47 @@ public class MegaferiaView extends javax.swing.JFrame {
             jComboBox4.addItem("Otro");
         }
     }                                             
-
-    // ====== MÉTODO CAMBIADO: CREAR STAND (punto 3 de la IA) ======
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {                                         
+    
+    private void btnCrearStandActionPerformed(java.awt.event.ActionEvent evt) {
         try {
-            long id = Long.parseLong(jTextField2.getText().trim());
-            double precio = Double.parseDouble(jTextField1.getText().trim());
-
+            long id = Long.parseLong(txtStandId.getText().trim());
+            double precio = Double.parseDouble(txtStandPrice.getText().trim());
+            
             Response<?> res = standController.crear(id, precio);
-            JOptionPane.showMessageDialog(
-                this,
-                res.getMessage(),
-                res.isSuccess() ? "Éxito" : "Error",
-                res.isSuccess() ? JOptionPane.INFORMATION_MESSAGE : JOptionPane.ERROR_MESSAGE
-            );
-
+            JOptionPane.showMessageDialog(this, res.getMessage(), 
+                res.isSuccess() ? "Éxito" : "Error", 
+                res.isSuccess() ? JOptionPane.INFORMATION_MESSAGE : JOptionPane.ERROR_MESSAGE);
+                
             if (res.isSuccess()) {
-                jTextField2.setText("");
-                jTextField1.setText("");
+                txtStandId.setText("");
+                txtStandPrice.setText("");
                 actualizarTablaStands();
             }
         } catch (Exception e) {
             JOptionPane.showMessageDialog(this, "Datos inválidos en stand", "Error", JOptionPane.ERROR_MESSAGE);
         }
-    }                                        
+    }                                    
 
-    // ====== MÉTODO CAMBIADO: CREAR AUTOR ======
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {                                         
+    private void btnCrearAutorActionPerformed(java.awt.event.ActionEvent evt) {
         try {
-            long id = Long.parseLong(jTextField3.getText().trim());
-            String nombre = jTextField4.getText().trim();
-            String apellido = jTextField5.getText().trim();
-
+            long id = Long.parseLong(txtPersonId.getText().trim());
+            String nombre = txtPersonName.getText().trim();
+            String apellido = txtPersonLastName.getText().trim();
+            
             Response<?> res = personController.crear(id, nombre, apellido, "Autor");
-            JOptionPane.showMessageDialog(
-                this,
-                res.getMessage(),
-                res.isSuccess() ? "Éxito" : "Error",
-                res.isSuccess() ? JOptionPane.INFORMATION_MESSAGE : JOptionPane.ERROR_MESSAGE
-            );
-
+            JOptionPane.showMessageDialog(this, res.getMessage(), 
+                res.isSuccess() ? "Éxito" : "Error", 
+                res.isSuccess() ? 1 : 0);
+                
             if (res.isSuccess()) {
-                jTextField3.setText("");
-                jTextField4.setText("");
-                jTextField5.setText("");
+                txtPersonId.setText(""); txtPersonName.setText(""); txtPersonLastName.setText("");
                 actualizarComboGerentes();
             }
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(this, "Datos inválidos", "Error", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Datos inválidos", "Error", 0);
         }
-    }                                        
+    }                                     
 
-    // ====== MÉTODO CAMBIADO: CREAR GERENTE ======
     private void jButton16ActionPerformed(java.awt.event.ActionEvent evt) {                                          
         try {
             long id = Long.parseLong(jTextField3.getText().trim());
@@ -1459,7 +1448,6 @@ public class MegaferiaView extends javax.swing.JFrame {
         }
     }                                         
 
-    // ====== MÉTODO CAMBIADO: CREAR NARRADOR ======
     private void jButton17ActionPerformed(java.awt.event.ActionEvent evt) {                                          
         try {
             long id = Long.parseLong(jTextField3.getText().trim());
@@ -1484,7 +1472,6 @@ public class MegaferiaView extends javax.swing.JFrame {
         }
     }                                         
 
-    // ====== MÉTODO CAMBIADO: CREAR EDITORIAL ======
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {                                         
         try {
             String nit = jTextField6.getText().trim();
@@ -1505,7 +1492,6 @@ public class MegaferiaView extends javax.swing.JFrame {
                 jTextField7.setText("");
                 jTextField8.setText("");
 
-                // Mantengo la lógica mínima para el combo (no toco más de lo que pide la IA)
                 jComboBox5.addItem(nombre + " (" + nit + ")");
                 jComboBox8.addItem(nombre + " (" + nit + ")");
             }
