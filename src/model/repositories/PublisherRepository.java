@@ -1,6 +1,6 @@
-package repository;
+package model.repositories;
 
-import model.Publisher;
+import model.entities.Publisher;
 import java.util.ArrayList;
 
 public class PublisherRepository {

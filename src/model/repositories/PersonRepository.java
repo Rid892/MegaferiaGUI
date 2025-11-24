@@ -1,6 +1,6 @@
-package repository;
+package model.repositories;
 
-import model.Person;
+import model.entities.Person;
 import java.util.ArrayList;
 
 public class PersonRepository {
