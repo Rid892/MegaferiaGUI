@@ -6,65 +6,20 @@ package model.entities;
 
 import java.util.ArrayList;
 
-/**
- *
- * @author edangulo
- */
 public class Publisher {
-    
-    private final String nit;
-    private String name;
-    private String address;
-    private Manager manager;
-    private ArrayList<Book> books;
-    private ArrayList<Stand> stands;
+    private String nit, nombre, direccion;
+    private Person gerente;
+    private ArrayList<Stand> standsComprados = new ArrayList<>();
 
-    public Publisher(String nit, String name, String address, Manager manager) {
-        this.nit = nit;
-        this.name = name;
-        this.address = address;
-        this.manager = manager;
-        this.books = new ArrayList<>();
-        this.stands = new ArrayList<>();
-        
-        this.manager.setPublisher(this);
+    public Publisher(String nit, String nombre, String direccion, Person gerente) {
+        this.nit = nit; this.nombre = nombre; this.direccion = direccion; this.gerente = gerente;
     }
 
-    public String getNit() {
-        return nit;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public String getAddress() {
-        return address;
-    }
-
-    public Manager getManager() {
-        return manager;
-    }
-    
-    public int getStandQuantity() {
-        return this.stands.size();
-    }
-    
-    public void addBook(Book book) {
-        this.books.add(book);
-    }
-    
-    public void addStand(Stand stand) {
-        this.stands.add(stand);
-    }
-
-    @Override
-    public Publisher deepCopy() {
-        Publisher copy = new Publisher();
-        copy.setNit(this.getNit());
-        copy.setName(this.getName());
-        copy.setManager(this.getManager() != null ? this.getManager().deepCopy() : null);
-        return copy;
-    }
-    
+    // getters y métodos para los stands
+    public String getNit() { return nit; }
+    public String getNombre() { return nombre; }
+    public Person getGerente() { return gerente; }
+    public void addStand(Stand s) { standsComprados.add(s); }
+    public ArrayList<Stand> getStands() { return standsComprados; }
+    @Override public String toString() { return nombre + " - " + nit; }
 }

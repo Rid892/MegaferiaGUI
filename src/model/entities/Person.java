@@ -4,44 +4,17 @@
  */
 package model.entities;
 
-/**
- *
- * @author edangulo
- */
-public abstract class Person {
-    
-    protected final long id;
-    protected String firstname;
-    protected String lastname;
+public class Person {
+    private String id, nombre, apellido;
+    private String tipo; // "Autor", "Gerente", "Narrador"
 
-    public Person(long id, String firstname, String lastname) {
-        this.id = id;
-        this.firstname = firstname;
-        this.lastname = lastname;
+    public Person(String id, String nombre, String apellido, String tipo) {
+        this.id = id; this.nombre = nombre; this.apellido = apellido; this.tipo = tipo;
     }
 
-    public long getId() {
-        return id;
-    }
-
-    public String getFirstname() {
-        return firstname;
-    }
-
-    public String getLastname() {
-        return lastname;
-    }
-    
-    public String getFullname() {
-        return firstname + " " + lastname;
-    }
-
-    public Person deepCopy() {
-        Person copy = new Person();
-        copy.setId(this.getId());
-        copy.setName(this.getName());
-        copy.setLastName(this.getLastName());
-        return copy;
-    }
-    
+    public String getId() { return id; }
+    public String getNombre() { return nombre; }
+    public String getApellido() { return apellido; }
+    public String getTipo() { return tipo; }
+    @Override public String toString() { return nombre + " " + apellido + " (" + tipo + ")"; }
 }

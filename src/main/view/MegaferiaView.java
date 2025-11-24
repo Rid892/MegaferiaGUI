@@ -4,6 +4,11 @@
  */
 package view;
 
+import controller.StandController;
+import controller.PersonController;
+import controller.PublisherController;
+import utils.Response;
+import javax.swing.JOptionPane;
 import com.formdev.flatlaf.FlatDarkLaf;
 import java.util.ArrayList;
 import javax.swing.UIManager;

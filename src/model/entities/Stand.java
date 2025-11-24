@@ -4,49 +4,16 @@
  */
 package model.entities;
 
-import java.util.ArrayList;
-
-/**
- *
- * @author edangulo
- */
 public class Stand {
-    
-    private long id;
-    private double price;
-    private ArrayList<Publisher> publishers;
+    private String id;
+    private double precio;
 
-    public Stand(long id, double price) {
+    public Stand(String id, double precio) {
         this.id = id;
-        this.price = price;
-        this.publishers = new ArrayList<>();
-    }
-    
-    public void addPublisher(Publisher publisher) {
-        this.publishers.add(publisher);
+        this.precio = precio;
     }
 
-    public long getId() {
-        return id;
-    }
-
-    public double getPrice() {
-        return price;
-    }
-
-    public ArrayList<Publisher> getPublishers() {
-        return publishers;
-    }
-    
-    public int getPublisherQuantity() {
-        return this.publishers.size();
-    }
-
-    @Override
-    public Stand deepCopy() {
-        Stand copy = new Stand(this.getId(), this.getPrice());
-        this.getPublishers().forEach(p -> copy.addPublisher(p.deepCopy()));
-        return copy;
-    }
-    
+    public String getId() { return id; }
+    public double getPrecio() { return precio; }
+    @Override public String toString() { return id + " ($" + precio + ")"; }
 }

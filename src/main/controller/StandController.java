@@ -1,19 +1,30 @@
 package controller;
 
-import model.Response;
-import model.StatusCode;
-import model.entities.Stand;
-import model.repositories.StandRepository;
-import java.util.List;
+import model.Stand;
+import repository.StandRepository;
+import utils.Response;
+import utils.BusinessException;
+import utils.StatusCode;
+import java.util.ArrayList;
 
 public class StandController {
     private final StandRepository repo = new StandRepository();
 
-    public Response<Stand> createStand(long id, double price) {
-        return repo.create(id, price);
+    public Response<Stand> crear(String id, double precio) {
+        try {
+            if (id.trim().isEmpty()) throw new BusinessException(StatusCode.VALIDATION_ERROR, "ID requerido");
+            if (precio <= 0) throw new BusinessException(StatusCode.VALIDATION_ERROR, "Precio inválido");
+            if (repo.findById(id) != null) throw new BusinessException(StatusCode.DUPLICATE, "Stand ya existe");
+
+            Stand s = new Stand(id, precio);
+            repo.save(s);
+            return new Response<>(s, "Stand creado", true);
+        } catch (BusinessException e) {
+            return new Response<>(null, e.getMessage(), false);
+        }
     }
 
-    public List<Stand> getAllStands() {
-        return repo.getAll();
+    public Response<ArrayList<Stand>> getAll() {
+        return new Response<>(repo.getAll(), "OK", true);
     }
 }
