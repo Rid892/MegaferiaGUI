@@ -1423,82 +1423,74 @@ public class MegaferiaView extends javax.swing.JFrame {
         }
     }                                     
 
-    private void jButton16ActionPerformed(java.awt.event.ActionEvent evt) {                                          
+    private void btnCrearGerenteActionPerformed(java.awt.event.ActionEvent evt) {                                               
         try {
-            long id = Long.parseLong(jTextField3.getText().trim());
-            String nombre = jTextField4.getText().trim();
-            String apellido = jTextField5.getText().trim();
-
+            long id = Long.parseLong(txtPersonId.getText().trim());
+            String nombre = txtPersonName.getText().trim();
+            String apellido = txtPersonLastName.getText().trim();
+    
             Response<?> res = personController.crear(id, nombre, apellido, "Gerente");
-            JOptionPane.showMessageDialog(
-                this,
-                res.getMessage(),
-                res.isSuccess() ? "Éxito" : "Error",
-                res.isSuccess() ? JOptionPane.INFORMATION_MESSAGE : JOptionPane.ERROR_MESSAGE
-            );
-
+            JOptionPane.showMessageDialog(this, res.getMessage(),
+                    res.isSuccess() ? "Éxito" : "Error",
+                    res.isSuccess() ? JOptionPane.INFORMATION_MESSAGE : JOptionPane.ERROR_MESSAGE);
+    
             if (res.isSuccess()) {
-                jTextField3.setText("");
-                jTextField4.setText("");
-                jTextField5.setText("");
+                txtPersonId.setText("");
+                    txtPersonName.setText("");
+                txtPersonLastName.setText("");
                 actualizarComboGerentes();
             }
         } catch (Exception e) {
             JOptionPane.showMessageDialog(this, "Datos inválidos", "Error", JOptionPane.ERROR_MESSAGE);
         }
-    }                                         
+    }
+                                       
 
-    private void jButton17ActionPerformed(java.awt.event.ActionEvent evt) {                                          
+    private void btnCrearNarradorActionPerformed(java.awt.event.ActionEvent evt) {                                                
         try {
-            long id = Long.parseLong(jTextField3.getText().trim());
-            String nombre = jTextField4.getText().trim();
-            String apellido = jTextField5.getText().trim();
-
+            long id = Long.parseLong(txtPersonId.getText().trim());
+            String nombre = txtPersonName.getText().trim();
+            String apellido = txtPersonLastName.getText().trim();
+    
             Response<?> res = personController.crear(id, nombre, apellido, "Narrador");
-            JOptionPane.showMessageDialog(
-                this,
-                res.getMessage(),
-                res.isSuccess() ? "Éxito" : "Error",
-                res.isSuccess() ? JOptionPane.INFORMATION_MESSAGE : JOptionPane.ERROR_MESSAGE
-            );
-
+            JOptionPane.showMessageDialog(this, res.getMessage(),
+                    res.isSuccess() ? "Éxito" : "Error",
+                    res.isSuccess() ? JOptionPane.INFORMATION_MESSAGE : JOptionPane.ERROR_MESSAGE);
+    
             if (res.isSuccess()) {
-                jTextField3.setText("");
-                jTextField4.setText("");
-                jTextField5.setText("");
+                txtPersonId.setText("");
+                txtPersonName.setText("");
+                txtPersonLastName.setText("");
             }
         } catch (Exception e) {
             JOptionPane.showMessageDialog(this, "Datos inválidos", "Error", JOptionPane.ERROR_MESSAGE);
         }
-    }                                         
+    }
+                                     
 
-    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {                                         
+    private void btnCrearEditorialActionPerformed(java.awt.event.ActionEvent evt) {                                                  
         try {
-            String nit = jTextField6.getText().trim();
-            String nombre = jTextField7.getText().trim();
-            String direccion = jTextField8.getText().trim();
-            String gerenteId = jComboBox1.getSelectedItem().toString().split(" - ")[0];
-
+            String nit = txtNit.getText().trim();
+            String nombre = txtPublisherName.getText().trim();
+            String direccion = txtPublisherAddress.getText().trim();
+            String gerenteId = cmbManager.getSelectedItem().toString().split(" - ")[0];
+    
             Response<?> res = publisherController.crear(nit, nombre, direccion, gerenteId);
-            JOptionPane.showMessageDialog(
-                this,
-                res.getMessage(),
-                res.isSuccess() ? "Éxito" : "Error",
-                res.isSuccess() ? JOptionPane.INFORMATION_MESSAGE : JOptionPane.ERROR_MESSAGE
-            );
-
+            JOptionPane.showMessageDialog(this, res.getMessage(),
+                    res.isSuccess() ? "Éxito" : "Error",
+                    res.isSuccess() ? JOptionPane.INFORMATION_MESSAGE : JOptionPane.ERROR_MESSAGE);
+    
             if (res.isSuccess()) {
-                jTextField6.setText("");
-                jTextField7.setText("");
-                jTextField8.setText("");
-
-                jComboBox5.addItem(nombre + " (" + nit + ")");
-                jComboBox8.addItem(nombre + " (" + nit + ")");
+                txtNit.setText("");
+                txtPublisherName.setText("");
+                txtPublisherAddress.setText("");
+                actualizarComboEditoriales();
             }
         } catch (Exception e) {
             JOptionPane.showMessageDialog(this, "Datos inválidos", "Error", JOptionPane.ERROR_MESSAGE);
         }
-    }                                        
+    }
+                                      
 
     private void jButton8ActionPerformed(java.awt.event.ActionEvent evt) {                                         
         // TODO add your handling code here:
@@ -1596,39 +1588,36 @@ public class MegaferiaView extends javax.swing.JFrame {
         jTextArea1.setText(jTextArea1.getText().replace(publisher + "\n", ""));
     }                                        
 
-    // ====== MÉTODO CAMBIADO: COMPRAR STANDS ======
-    private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {                                         
+    private void btnBuyStandsActionPerformed(java.awt.event.ActionEvent evt) {                                             
         try {
-            String[] standsTxt = jTextArea3.getText().trim().split("\n");
-            String[] publishersTxt = jTextArea1.getText().trim().split("\n");
-
+            String[] standsTxt = txaSelectedStands.getText().trim().split("\n");
+            String[] publishersTxt = txaSelectedPublishers.getText().trim().split("\n");
+    
             List<Long> standIds = Arrays.stream(standsTxt)
                     .filter(s -> !s.isBlank())
                     .map(Long::parseLong)
                     .toList();
-
+    
             List<String> publisherNits = Arrays.stream(publishersTxt)
                     .filter(s -> !s.isBlank())
                     .map(s -> s.contains("(") ? s.split("\\(")[1].replace(")", "") : s)
                     .toList();
-
+    
             Response<?> res = purchaseController.comprar(standIds, publisherNits);
-            JOptionPane.showMessageDialog(
-                this,
-                res.getMessage(),
-                res.isSuccess() ? "Éxito" : "Error",
-                res.isSuccess() ? JOptionPane.INFORMATION_MESSAGE : JOptionPane.ERROR_MESSAGE
-            );
-
+            JOptionPane.showMessageDialog(this, res.getMessage(),
+                    res.isSuccess() ? "Éxito" : "Error",
+                    res.isSuccess() ? JOptionPane.INFORMATION_MESSAGE : JOptionPane.ERROR_MESSAGE);
+    
             if (res.isSuccess()) {
-                jTextArea3.setText("");
-                jTextArea1.setText("");
+                txaSelectedStands.setText("");
+                txaSelectedPublishers.setText("");
                 actualizarTablaStands();
             }
         } catch (Exception e) {
             JOptionPane.showMessageDialog(this, "Error en compra", "Error", JOptionPane.ERROR_MESSAGE);
         }
-    }                                        
+    }
+                                      
 
     private void jButton12ActionPerformed(java.awt.event.ActionEvent evt) {                                          
         // TODO add your handling code here:
@@ -1965,6 +1954,31 @@ public class MegaferiaView extends javax.swing.JFrame {
     private javax.swing.JTextField jTextField14;
     private javax.swing.JTextField jTextField15;
     private javax.swing.JTextField jTextField16;
-    // End of variables declaration                   
+    private void actualizarTablaStands() {
+        DefaultTableModel model = (DefaultTableModel) tblStands.getModel();
+        model.setRowCount(0);
+        Response<List<StandDTO>> res = standController.obtenerTodos();
+        if (res != null && res.isSuccess() && res.getData() != null) {
+            for (StandDTO s : res.getData()) {
+                model.addRow(new Object[]{
+                        s.getId(),
+                        s.getPrecio(),
+                        s.isComprado() ? "Sí" : "No"
+                });
+            }
+        }
+    }
+
+    private void actualizarComboGerentes() {
+        cmbManager.removeAllItems();
+        Response<List<PersonDTO>> res = personController.obtenerGerentes();
+        if (res != null && res.isSuccess() && res.getData() != null) {
+            for (PersonDTO p : res.getData()) {
+                cmbManager.addItem(p.getId() + " - " + p.getNombre() + " " + p.getApellido());
+            }
+        }
+    }
+
+// End of variables declaration                  
 }
 ```
